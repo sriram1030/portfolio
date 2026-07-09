@@ -1,21 +1,25 @@
-name: Test SSH
+name: Deploy Portfolio
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test SSH
+      - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          debug: true
           script: |
-            whoami
-            hostname
-            pwd
+            git config --global --add safe.directory /opt/docker/apps/portfolio
+
+            cd /opt/docker/apps/portfolio
+
+            git fetch origin
+            git reset --hard origin/main

@@ -3,323 +3,504 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>root@sriram:~$ ssh space-station</title>
-    <meta name="description" content="Sriram S - Linux Command Console Portfolio. Deep-space research station systems developer.">
-    <!-- Fonts: JetBrains Mono -->
+    <title>SRIRAM S | Space Observatory Portfolio</title>
+    <meta name="description" content="Mission Journal of Sriram S - Developer, Designer & Systems Engineer. Orbiting Saturn.">
+    <!-- Fonts: JetBrains Mono for the tech feel & Outfit for headings -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="booting">
-
-    <!-- Linux Boot Screen Overlay -->
-    <div id="boot-overlay" class="boot-screen">
-        <div class="boot-terminal">
-            <span class="prompt">boot@space-station:~$</span> <span id="boot-command"></span><span class="cursor blinking-block"></span>
-            <div id="boot-logs" class="boot-logs"></div>
-        </div>
-    </div>
+<body>
 
     <!-- Space Background & Anomaly -->
     <div class="space-bg">
         <div class="stars" id="stars-field"></div>
-        <div class="nebula"></div>
-        <div class="planet-anomaly"></div>
+        <div class="nebula-bg"></div>
+        <div class="giant-planet"></div>
+        <div class="satellite-orbit-line"></div>
+    </div>
+
+    <!-- Orbital Progress Ring (Fixed in bottom right) -->
+    <div class="orbital-progress-container" title="Scroll Progress">
+        <svg class="orbital-ring-svg" width="80" height="80">
+            <circle class="orbital-ring-bg" cx="40" cy="40" r="35"></circle>
+            <circle class="orbital-ring-fill" cx="40" cy="40" r="35"></circle>
+        </svg>
+        <div class="orbital-progress-text">0%</div>
     </div>
 
     <!-- Navigation Header -->
     <header class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">root@sriram:~$</div>
+            <a href="#" class="nav-brand">OBSERVATORY // SRIRAM</a>
             <nav class="nav-menu">
+                <a href="#hero" class="nav-link">MISSION</a>
                 <a href="#about" class="nav-link">ABOUT</a>
                 <a href="#skills" class="nav-link">SKILLS</a>
                 <a href="#projects" class="nav-link">PROJECTS</a>
-                <a href="#experience" class="nav-link">EXPERIENCE</a>
+                <a href="#journey" class="nav-link">JOURNEY</a>
                 <a href="#contact" class="nav-link">CONTACT</a>
+                <a href="assets/resume.pdf" download class="nav-link resume-link">[ RESUME ]</a>
             </nav>
         </div>
     </header>
 
-    <!-- Main Command Console -->
-    <main class="console-wrapper">
-        <!-- Top Terminal Decorative Header -->
-        <div class="terminal-decor-header">
-            <pre class="decor-ascii">
-┌──────────────────────────────────────────────┐
-root@sriram:~$ portfolio --launch
-└──────────────────────────────────────────────┘</pre>
-        </div>
+    <!-- Main Container -->
+    <main class="observatory-layout">
 
         <!-- Hero Section -->
         <section id="hero" class="hero-section">
             <div class="hero-grid">
                 <div class="hero-text-block">
-                    <div class="command-line"><span class="accent-prompt">&gt;</span> whoami</div>
-                    <h1 class="dev-name">SRIRAM S</h1>
+                    <!-- Mission Log Metadata Box -->
+                    <div class="mission-log-box">
+                        <div class="log-row">
+                            <span class="log-label">MISSION LOG</span>
+                            <span class="log-value accent-text">2026</span>
+                        </div>
+                        <div class="log-row">
+                            <span class="log-label">EARTH NODE</span>
+                            <span class="log-value">CHENNAI</span>
+                        </div>
+                        <div class="log-row">
+                            <span class="log-label">DEVELOPER ID</span>
+                            <span class="log-value text-mono">SRIRAM-S</span>
+                        </div>
+                        <div class="log-row">
+                            <span class="log-label">STATUS</span>
+                            <span class="log-value status-online">ONLINE</span>
+                        </div>
+                    </div>
+
+                    <h1 class="dev-name font-outfit">SRIRAM S</h1>
+                    
                     <div class="taglines">
                         <span class="tag-item">Web Developer</span>
                         <span class="tag-item">Android Developer</span>
                         <span class="tag-item">Digital Marketer</span>
                         <span class="tag-item">AI Automation Enthusiast</span>
                     </div>
-                    <p class="hero-subtext">
-                        Building websites, Android applications and AI-powered workflows that solve real business problems.
-                    </p>
-                    <div class="status-badge">
-                        <span class="pulse-indicator"></span>
-                        <span class="status-msg">AVAILABLE FOR WORK</span>
-                    </div>
-                    <div class="hero-actions">
-                        <a href="#projects" class="terminal-btn">[ View Projects ]</a>
-                        <a href="assets/resume.pdf" download class="terminal-btn">[ Download Resume ]</a>
-                    </div>
-                </div>
-                <div class="hero-planet-block">
-                    <!-- CSS generated planet -->
-                    <div class="css-planet">
-                        <div class="planet-surface"></div>
-                        <div class="planet-ring"></div>
-                        <div class="planet-shadow"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- About Section -->
-        <section id="about" class="console-section reveal">
-            <h2 class="section-heading">&gt; ABOUT</h2>
-            <div class="about-grid">
-                <div class="about-text">
-                    <p>
-                        I'm Sriram, a Web & Mobile Developer from Chennai with over two years of professional experience building websites, Android applications, and digital marketing solutions. I enjoy taking projects from concept to deployment, whether it's creating WordPress websites, developing Android apps in Kotlin, managing servers, optimizing SEO, or building AI-powered automations.
+                    <p class="hero-subtext">
+                        Building practical software for businesses using clean engineering and modern technology.
                     </p>
-                    <p>
-                        Currently, I'm expanding into Docker, Supabase, backend development, Flutter, AI agents, and scalable cloud-native applications. I enjoy learning modern technologies while creating practical software that helps businesses and people.
-                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#about" class="btn btn-primary">Explore Mission</a>
+                        <a href="assets/resume.pdf" download class="btn btn-secondary">[ Download Resume ]</a>
+                    </div>
                 </div>
-                <div class="focus-block">
-                    <div class="terminal-card">
-                        <div class="card-header">$ cat current_focus.txt</div>
-                        <div class="card-body text-monospace">
-                            <ul>
-                                <li>• Docker</li>
-                                <li>• Supabase</li>
-                                <li>• Flutter</li>
-                                <li>• AI Automation</li>
-                                <li>• Modern Backend</li>
-                                <li>• DevOps</li>
-                            </ul>
+
+                <div class="hero-illustration-block">
+                    <!-- Handcrafted CSS Saturn & Observatory Space Station -->
+                    <div class="space-illustration">
+                        <div class="saturn-planet">
+                            <div class="saturn-shading"></div>
+                        </div>
+                        <div class="saturn-rings"></div>
+                        
+                        <div class="observatory-station">
+                            <div class="station-core">
+                                <div class="blinking-beacon"></div>
+                            </div>
+                            <div class="station-panel panel-left"></div>
+                            <div class="station-panel panel-right"></div>
+                            <div class="station-antenna"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="console-section reveal">
-            <h2 class="section-heading">&gt; SKILLS</h2>
-            <div class="skills-grid">
-                <!-- Frontend Directory -->
-                <div class="directory-card">
-                    <h3 class="directory-title">📁 Frontend</h3>
-                    <ul class="directory-list">
-                        <li>HTML</li>
-                        <li>CSS</li>
-                        <li>JavaScript</li>
-                        <li>WordPress</li>
-                        <li>Elementor</li>
-                    </ul>
-                </div>
-                <!-- Mobile Directory -->
-                <div class="directory-card">
-                    <h3 class="directory-title">📁 Mobile</h3>
-                    <ul class="directory-list">
-                        <li>Kotlin</li>
-                        <li>Java</li>
-                        <li>Android Studio</li>
-                    </ul>
-                </div>
-                <!-- Marketing Directory -->
-                <div class="directory-card">
-                    <h3 class="directory-title">📁 Marketing</h3>
-                    <ul class="directory-list">
-                        <li>Google Ads</li>
-                        <li>SEO</li>
-                        <li>Meta Ads</li>
-                    </ul>
-                </div>
-                <!-- Backend Directory -->
-                <div class="directory-card">
-                    <h3 class="directory-title">📁 Backend</h3>
-                    <ul class="directory-list">
-                        <li>REST APIs</li>
-                        <li>Supabase</li>
-                        <li>Firebase</li>
-                    </ul>
-                </div>
-                <!-- Infrastructure Directory -->
-                <div class="directory-card">
-                    <h3 class="directory-title">📁 Infrastructure</h3>
-                    <ul class="directory-list">
-                        <li>Docker</li>
-                        <li>Linux</li>
-                        <li>Hosting</li>
-                        <li>Domains</li>
-                    </ul>
-                </div>
-                <!-- Automation Directory -->
-                <div class="directory-card">
-                    <h3 class="directory-title">📁 Automation</h3>
-                    <ul class="directory-list">
-                        <li>n8n</li>
-                        <li>AI</li>
-                        <li>API Integration</li>
-                    </ul>
-                </div>
+        <!-- About Section (Mission 01) -->
+        <section id="about" class="content-section reveal">
+            <div class="section-meta">
+                <span class="meta-number">MISSION 01</span>
+                <h2 class="section-heading font-outfit">WHO AM I</h2>
             </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="console-section reveal">
-            <h2 class="section-heading">&gt; PROJECTS</h2>
-            <div class="projects-list">
-                <!-- Project 01 -->
-                <div class="project-item-card">
-                    <div class="project-meta">
-                        <span class="project-id">Project 01</span>
-                    </div>
-                    <div class="project-details">
-                        <h3 class="project-title">Church Sermon Android App</h3>
-                        <p class="project-description">Native Android application for streaming sermons using REST APIs and Gemini AI for automated transcription, summarization, and query processing.</p>
-                    </div>
+            
+            <div class="about-grid">
+                <div class="about-text">
+                    <p class="lead-text">
+                        I am Sriram, a developer driven by a curiosity to understand how systems connect and how technology can solve tangible business challenges.
+                    </p>
+                    <p>
+                        With over two years of professional experience working with Grafikos, I have built multiple responsive WordPress websites, designed native Android applications, optimized search engine configurations (SEO), managed Google Ads campaigns, and automated workflows to streamline operations.
+                    </p>
+                    <p>
+                        I focus on building lightweight, accessible, and high-performance code. Currently, my research is focused on Docker, Supabase, Flutter, and building autonomous AI agent integrations. I prefer direct communication, clean architecture, and avoiding unnecessary complexity.
+                    </p>
                 </div>
-                <!-- Project 02 -->
-                <div class="project-item-card">
-                    <div class="project-meta">
-                        <span class="project-id">Project 02</span>
-                    </div>
-                    <div class="project-details">
-                        <h3 class="project-title">Weather Satellite App</h3>
-                        <p class="project-description">Displays real-time weather satellite imagery for India, overlaying radar metrics and environmental sensor metrics from external APIs.</p>
-                    </div>
-                </div>
-                <!-- Project 03 -->
-                <div class="project-item-card">
-                    <div class="project-meta">
-                        <span class="project-id">Project 03</span>
-                    </div>
-                    <div class="project-details">
-                        <h3 class="project-title">Grafikos Websites</h3>
-                        <p class="project-description">Developed and maintained multiple high-performance client websites using WordPress and Elementor, optimizing UX speeds and Google Lighthouse metrics.</p>
-                    </div>
-                </div>
-                <!-- Project 04 -->
-                <div class="project-item-card">
-                    <div class="project-meta">
-                        <span class="project-id">Project 04</span>
-                    </div>
-                    <div class="project-details">
-                        <h3 class="project-title">AI Workflow Automation</h3>
-                        <p class="project-description">Automated repetitive business processes, internal logging, and cross-channel message syncing using AI tools and n8n pipelines.</p>
-                    </div>
-                </div>
-                <!-- Project 05 -->
-                <div class="project-item-card">
-                    <div class="project-meta">
-                        <span class="project-id">Project 05</span>
-                    </div>
-                    <div class="project-details">
-                        <h3 class="project-title">Space Portfolio</h3>
-                        <p class="project-description">This portfolio itself, designed to look like a secure command interface on an orbital space station. Highly lightweight and optimized.</p>
+                <div class="telemetry-card-wrapper">
+                    <div class="telemetry-card">
+                        <div class="telemetry-header">SYSTEM CORE STATUS</div>
+                        <div class="telemetry-body">
+                            <div class="telemetry-row">
+                                <span class="lbl">STATION PROPULSION</span>
+                                <span class="val success-text">ACTIVE</span>
+                            </div>
+                            <div class="telemetry-row">
+                                <span class="lbl">RESEARCH DOMAINS</span>
+                                <span class="val">FULL STACK</span>
+                            </div>
+                            <div class="telemetry-row">
+                                <span class="lbl">DOCKER ENGINE</span>
+                                <span class="val success-text">CONTAINERIZED</span>
+                            </div>
+                            <div class="telemetry-row">
+                                <span class="lbl">SUPABASE SYNCHRONIZER</span>
+                                <span class="val">CONNECTED</span>
+                            </div>
+                            <div class="telemetry-row">
+                                <span class="lbl">AI AGENT INTERFACES</span>
+                                <span class="val accent-text">INTEGRATED</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Experience Section -->
-        <section id="experience" class="console-section reveal">
-            <h2 class="section-heading">&gt; EXPERIENCE</h2>
-            <div class="experience-block">
-                <div class="command-line"><span class="accent-prompt">root@sriram:~$</span> history</div>
-                <div class="timeline-container">
-                    <div class="timeline-log-header">2023 &gt; Joined Grafikos</div>
-                    <ul class="timeline-bullets">
-                        <li>Designed websites using custom methodologies and page builders</li>
-                        <li>Built native Android applications from structural layout to release packages</li>
-                        <li>Managed VPS hosting configurations, system servers, and domains</li>
-                        <li>SEO optimization (semantic indexing, speed tuning, sitemap configurations)</li>
-                        <li>Google Ads campaign creation and budget performance tracking</li>
-                        <li>Client Support, system onboarding, and technical training</li>
-                        <li>AI-assisted development to enhance deployment cycles</li>
-                    </ul>
+        <!-- Skills Section (Mission 02) -->
+        <section id="skills" class="content-section reveal">
+            <div class="section-meta">
+                <span class="meta-number">MISSION 02</span>
+                <h2 class="section-heading font-outfit">PLANETARY DOMAINS</h2>
+            </div>
+            
+            <p class="section-subtitle">Hover over each glowing planetary body to reveal the technical stacks deployed within that sector.</p>
+
+            <div class="skills-planetary-system">
+                <!-- Planet 1: Frontend -->
+                <div class="planet-domain pd-frontend" style="--orbit-dist: 220px; --orbit-speed: 25s; --planet-color: #69D2FF; --planet-size: 55px;">
+                    <div class="planet-body">
+                        <span class="planet-label">Frontend</span>
+                    </div>
+                    <div class="planet-details-popover">
+                        <div class="popover-title">Frontend Stack</div>
+                        <ul class="popover-list">
+                            <li>HTML5 & CSS3</li>
+                            <li>Vanilla JavaScript</li>
+                            <li>WordPress</li>
+                            <li>Elementor Builders</li>
+                            <li>Web Performance (SEO)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Planet 2: Backend -->
+                <div class="planet-domain pd-backend" style="--orbit-dist: 340px; --orbit-speed: 35s; --planet-color: #A970FF; --planet-size: 65px;">
+                    <div class="planet-body">
+                        <span class="planet-label">Backend</span>
+                    </div>
+                    <div class="planet-details-popover">
+                        <div class="popover-title">Backend Stack</div>
+                        <ul class="popover-list">
+                            <li>REST API Design</li>
+                            <li>Supabase</li>
+                            <li>Firebase Services</li>
+                            <li>Node.js integrations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Planet 3: Android -->
+                <div class="planet-domain pd-android" style="--orbit-dist: 450px; --orbit-speed: 45s; --planet-color: #65FFAE; --planet-size: 60px;">
+                    <div class="planet-body">
+                        <span class="planet-label">Android</span>
+                    </div>
+                    <div class="planet-details-popover">
+                        <div class="popover-title">Mobile Stack</div>
+                        <ul class="popover-list">
+                            <li>Kotlin</li>
+                            <li>Java</li>
+                            <li>Android SDK / Studio</li>
+                            <li>Flutter & Dart</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Planet 4: Marketing -->
+                <div class="planet-domain pd-marketing" style="--orbit-dist: 560px; --orbit-speed: 55s; --planet-color: #FFA569; --planet-size: 50px;">
+                    <div class="planet-body">
+                        <span class="planet-label">Marketing</span>
+                    </div>
+                    <div class="planet-details-popover">
+                        <div class="popover-title">Digital Marketing</div>
+                        <ul class="popover-list">
+                            <li>Google Ads</li>
+                            <li>Meta Ads</li>
+                            <li>SEO Optimizations</li>
+                            <li>Sitemap Engineering</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Planet 5: Cloud -->
+                <div class="planet-domain pd-cloud" style="--orbit-dist: 670px; --orbit-speed: 65s; --planet-color: #FF69B4; --planet-size: 45px;">
+                    <div class="planet-body">
+                        <span class="planet-label">Cloud</span>
+                    </div>
+                    <div class="planet-details-popover">
+                        <div class="popover-title">Infrastructure</div>
+                        <ul class="popover-list">
+                            <li>Docker Containers</li>
+                            <li>VPS Server Hosting</li>
+                            <li>Linux Systems Administration</li>
+                            <li>Domain Infrastructure</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Planet 6: Automation -->
+                <div class="planet-domain pd-automation" style="--orbit-dist: 780px; --orbit-speed: 75s; --planet-color: #F3FF69; --planet-size: 48px;">
+                    <div class="planet-body">
+                        <span class="planet-label">Automation</span>
+                    </div>
+                    <div class="planet-details-popover">
+                        <div class="popover-title">AI & Workflows</div>
+                        <ul class="popover-list">
+                            <li>n8n Workflows</li>
+                            <li>AI Agent Integrations</li>
+                            <li>API Pipeline Scripting</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="console-section reveal">
-            <h2 class="section-heading">&gt; CONTACT</h2>
-            <div class="contact-details-grid">
-                <div class="details-card">
-                    <div class="detail-row">
-                        <span class="detail-label">Location</span>
-                        <span class="detail-value">Chennai, Tamil Nadu, India</span>
+        <!-- Projects Section (Mission 03) -->
+        <section id="projects" class="content-section reveal">
+            <div class="section-meta">
+                <span class="meta-number">MISSION 03</span>
+                <h2 class="section-heading font-outfit">ORBITAL PROJECTS</h2>
+            </div>
+            
+            <p class="section-subtitle">Hover over each satellite module to reveal log transmission details.</p>
+
+            <div class="satellites-grid">
+                <!-- Project Satellite 01 -->
+                <div class="satellite-card">
+                    <div class="satellite-visual">
+                        <div class="satellite-dish-icon">📡</div>
+                        <div class="satellite-rotate-ring"></div>
                     </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Phone</span>
-                        <span class="detail-value"><a href="tel:+918270852959" class="contact-anchor">+91 8270852959</a></span>
+                    <div class="satellite-content">
+                        <span class="satellite-tag">SATELLITE-01</span>
+                        <h3 class="satellite-title">Church Sermon App</h3>
+                        <p class="satellite-description">Native Android application for streaming church sermons using REST APIs. Integrates Gemini AI for automatic transcription, translation, and text summaries.</p>
                     </div>
-                    <div class="detail-row">
-                        <span class="detail-label">Email</span>
-                        <span class="detail-value"><a href="mailto:sriramsri1030@gmail.com" class="contact-anchor">sriramsri1030@gmail.com</a></span>
+                </div>
+
+                <!-- Project Satellite 02 -->
+                <div class="satellite-card">
+                    <div class="satellite-visual">
+                        <div class="satellite-dish-icon">🛰️</div>
+                        <div class="satellite-rotate-ring"></div>
                     </div>
-                    <div class="detail-row">
-                        <span class="detail-label">GitHub</span>
-                        <span class="detail-value"><a href="https://github.com/sriram1030" target="_blank" rel="noopener" class="contact-anchor">https://github.com/sriram1030</a></span>
+                    <div class="satellite-content">
+                        <span class="satellite-tag">SATELLITE-02</span>
+                        <h3 class="satellite-title">Weather Satellite App</h3>
+                        <p class="satellite-description">Real-time Indian weather satellite image visualizer. Pulls, processes, and overlays radar metrics and thermal layers from external meteorological endpoints.</p>
                     </div>
-                    <div class="detail-row">
-                        <span class="detail-label">LinkedIn</span>
-                        <span class="detail-value"><a href="https://www.linkedin.com/in/sriram1030/" target="_blank" rel="noopener" class="contact-anchor">https://www.linkedin.com/in/sriram1030/</a></span>
+                </div>
+
+                <!-- Project Satellite 03 -->
+                <div class="satellite-card">
+                    <div class="satellite-visual">
+                        <div class="satellite-dish-icon">📡</div>
+                        <div class="satellite-rotate-ring"></div>
+                    </div>
+                    <div class="satellite-content">
+                        <span class="satellite-tag">SATELLITE-03</span>
+                        <h3 class="satellite-title">Grafikos Client Work</h3>
+                        <p class="satellite-description">Handcrafted multiple business platforms using WordPress and Elementor, designing custom components, and executing server migrations and domain setups.</p>
+                    </div>
+                </div>
+
+                <!-- Project Satellite 04 -->
+                <div class="satellite-card">
+                    <div class="satellite-visual">
+                        <div class="satellite-dish-icon">🛰️</div>
+                        <div class="satellite-rotate-ring"></div>
+                    </div>
+                    <div class="satellite-content">
+                        <span class="satellite-tag">SATELLITE-04</span>
+                        <h3 class="satellite-title">AI Workflow Automation</h3>
+                        <p class="satellite-description">Designed n8n flows to coordinate repetitive agency tasks. Connected API interfaces and databases to eliminate human data entry overhead.</p>
+                    </div>
+                </div>
+
+                <!-- Project Satellite 05 -->
+                <div class="satellite-card">
+                    <div class="satellite-visual">
+                        <div class="satellite-dish-icon">📡</div>
+                        <div class="satellite-rotate-ring"></div>
+                    </div>
+                    <div class="satellite-content">
+                        <span class="satellite-tag">SATELLITE-05</span>
+                        <h3 class="satellite-title">Space Observatory Portfolio</h3>
+                        <p class="satellite-description">A lightweight, custom designed portfolio resembling an astronaut's digital journal. Interactive starfields, orbital sensors, and direct visual elements.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Fun Terminal Command Shell -->
-        <section class="interactive-terminal-section reveal">
-            <div class="terminal-card interactive-cli">
-                <div class="card-header">root@sriram:~$ ssh_shell_console</div>
-                <div class="cli-body" id="cli-console">
-                    <div class="cli-line">Type <span class="highlight">help</span> to view available operations.</div>
-                    <div id="cli-output-list"></div>
-                    <div class="cli-input-row">
-                        <span class="prompt">root@sriram:~$</span>
-                        <input type="text" id="cli-input" autocomplete="off" spellcheck="false">
+        <!-- Quote Section -->
+        <section class="quote-section reveal">
+            <blockquote class="observatory-quote font-outfit">
+                "Technology should solve problems, not create complexity."
+            </blockquote>
+        </section>
+
+        <!-- Mission Timeline Section (Mission 04) -->
+        <section id="journey" class="content-section reveal">
+            <div class="section-meta">
+                <span class="meta-number">MISSION 04</span>
+                <h2 class="section-heading font-outfit">MISSION JOURNEY</h2>
+            </div>
+            
+            <div class="nasa-timeline">
+                <!-- 2023 -->
+                <div class="timeline-step">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                    </div>
+                    <div class="timeline-box">
+                        <div class="timeline-year text-mono">MISSION 2023</div>
+                        <h4 class="timeline-title">Joined Grafikos Agency</h4>
+                        <p class="timeline-detail">Started building web applications, designing user interfaces, and launching digital systems. Handled server management and initial client deployments.</p>
+                    </div>
+                </div>
+
+                <!-- 2024 -->
+                <div class="timeline-step">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                    </div>
+                    <div class="timeline-box">
+                        <div class="timeline-year text-mono">MISSION 2024</div>
+                        <h4 class="timeline-title">WordPress, SEO & Performance</h4>
+                        <p class="timeline-detail">Developed and launched dozens of client websites using WordPress and Elementor. Maintained page speeds, sitemaps, and optimized digital search indexing (SEO).</p>
+                    </div>
+                </div>
+
+                <!-- 2025 -->
+                <div class="timeline-step">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                    </div>
+                    <div class="timeline-box">
+                        <div class="timeline-year text-mono">MISSION 2025</div>
+                        <h4 class="timeline-title">Android Development & Google Ads</h4>
+                        <p class="timeline-detail">Transitioned into native Android development using Kotlin. Created client application builds, configured cloud analytics, and ran Google and Meta ad campaigns.</p>
+                    </div>
+                </div>
+
+                <!-- 2026 -->
+                <div class="timeline-step">
+                    <div class="timeline-marker">
+                        <div class="marker-dot"></div>
+                    </div>
+                    <div class="timeline-box">
+                        <div class="timeline-year text-mono">MISSION 2026</div>
+                        <h4 class="timeline-title">Docker, Supabase & AI Agents</h4>
+                        <p class="timeline-detail">Deepening experience in isolated environments (Docker), scalable backends (Supabase), multiplatform frameworks (Flutter), and automated AI agents.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="statistics-section reveal">
+            <div class="telemetry-title">SPACECRAFT TELEMETRY LOGS</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-num" data-target="2">0</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num" data-target="25">0</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num" data-target="20">0</div>
+                    <div class="stat-label">Active Clients</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num" data-target="15">0</div>
+                    <div class="stat-label">Technologies Mastered</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section (Mission 05) -->
+        <section id="contact" class="content-section reveal">
+            <div class="section-meta">
+                <span class="meta-number">MISSION 05</span>
+                <h2 class="section-heading font-outfit">COMMUNICATION TERMINAL</h2>
+            </div>
+            
+            <div class="contact-terminal">
+                <div class="terminal-decor-top">
+                    <span class="decor-dot"></span>
+                    <span class="decor-dot"></span>
+                    <span class="decor-dot"></span>
+                    <span class="decor-title text-mono">REC_RECEIVER_ACTIVE.log</span>
+                </div>
+                
+                <div class="contact-grid">
+                    <div class="contact-card-info">
+                        <div class="terminal-entry">
+                            <div class="label">LOCATION</div>
+                            <div class="value">Chennai, Tamil Nadu, India</div>
+                        </div>
+                        <div class="terminal-entry">
+                            <div class="label">PHONE</div>
+                            <div class="value"><a href="tel:+918270852959" class="comm-link">+91 8270852959</a></div>
+                        </div>
+                        <div class="terminal-entry">
+                            <div class="label">EMAIL</div>
+                            <div class="value"><a href="mailto:sriramsri1030@gmail.com" class="comm-link">sriramsri1030@gmail.com</a></div>
+                        </div>
+                    </div>
+
+                    <div class="contact-card-info">
+                        <div class="terminal-entry">
+                            <div class="label">GITHUB</div>
+                            <div class="value"><a href="https://github.com/sriram1030" target="_blank" rel="noopener" class="comm-link">github.com/sriram1030</a></div>
+                        </div>
+                        <div class="terminal-entry">
+                            <div class="label">LINKEDIN</div>
+                            <div class="value"><a href="https://www.linkedin.com/in/sriram1030/" target="_blank" rel="noopener" class="comm-link">linkedin.com/in/sriram1030/</a></div>
+                        </div>
+                        <div class="terminal-entry">
+                            <div class="label">TRANSMIT RESUME</div>
+                            <div class="value"><a href="assets/resume.pdf" download class="comm-link accent-text">[ DOWNLOAD RESUME ]</a></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer class="console-footer">
-            <div class="command-line"><span class="accent-prompt">root@sriram:~$</span> logout</div>
-            <div class="logout-msg">Connection closed.</div>
-            <div class="footer-divider">━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-            <div class="footer-meta">
-                <span>Built with</span>
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>Vanilla JavaScript</span>
+        <footer class="observatory-footer">
+            <div class="footer-status text-mono">MISSION COMPLETE</div>
+            <div class="footer-message">Thank you for exploring my journey.</div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom-grid">
+                <p class="copyright">&copy; 2026 SRIRAM S</p>
+                <div class="footer-tech">
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>VANILLA JAVASCRIPT</span>
+                </div>
             </div>
-            <div class="footer-divider">━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-            <p class="copyright">&copy; 2026 SRIRAM S</p>
         </footer>
+
     </main>
 
-    <!-- GSAP CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

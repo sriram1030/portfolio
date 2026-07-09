@@ -86,13 +86,24 @@ function runBootSequence() {
         } else {
             // All logs finished, blink cursor then load portfolio
             setTimeout(() => {
+                // Fade out boot overlay
+                gsap.to("#boot-overlay", { 
+                    opacity: 0, 
+                    duration: 0.8, 
+                    ease: "power2.out",
+                    onComplete: () => {
+                        document.body.classList.remove('booting');
+                        document.getElementById('boot-overlay').style.display = 'none';
+                    }
+                });
+
+                // Fade in nav & console content
                 document.body.classList.add('boot-complete');
-                document.body.classList.remove('booting');
                 if (cliInput) {
                     cliInput.disabled = false;
                 }
-                
-                // Aggressive scroll resetting to override browser scroll memory and layout-shift events
+
+                // Force scroll top
                 let scrollCount = 0;
                 const forceScrollTop = setInterval(() => {
                     window.scrollTo(0, 0);
@@ -103,6 +114,32 @@ function runBootSequence() {
                         clearInterval(forceScrollTop);
                     }
                 }, 40);
+
+                // GSAP premium entrance animations
+                gsap.fromTo(".navbar", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out", delay: 0.2 });
+                gsap.fromTo(".console-wrapper", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power2.out", delay: 0.4 });
+                
+                // Hero elements stagger
+                gsap.fromTo("#hero .command-line, #hero .dev-name, #hero .taglines, #hero .hero-subtext, #hero .status-badge, #hero .hero-actions a", 
+                    { y: 15, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: "power2.out", delay: 0.8 }
+                );
+
+                // Planet float animation
+                gsap.fromTo(".css-planet", 
+                    { scale: 0.8, opacity: 0 }, 
+                    { scale: 1, opacity: 1, duration: 1.2, ease: "back.out(1.5)", delay: 1 }
+                );
+                gsap.to(".css-planet", {
+                    y: -12,
+                    rotation: 2,
+                    duration: 6,
+                    ease: "sine.inOut",
+                    yoyo: true,
+                    repeat: -1,
+                    delay: 2.2
+                });
+
             }, 700);
         }
     }
@@ -218,20 +255,22 @@ function handleCliInput(e) {
 function initScrollReveal() {
     const revealElements = document.querySelectorAll('.reveal');
     
-    function checkReveal() {
-        const windowHeight = window.innerHeight;
-        const visibleBuffer = 100;
-
-        revealElements.forEach(el => {
-            const elementTop = el.getBoundingClientRect().top;
-            if (elementTop < windowHeight - visibleBuffer) {
-                el.classList.add('active');
+    // Use IntersectionObserver with GSAP for high performance transitions
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                gsap.fromTo(entry.target, 
+                    { opacity: 0, y: 30 }, 
+                    { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+                );
+                observer.unobserve(entry.target);
             }
         });
-    }
+    }, { threshold: 0.05 });
 
-    window.addEventListener('scroll', checkReveal);
-    checkReveal();
+    revealElements.forEach(el => {
+        observer.observe(el);
+    });
 }
 
 // ----- Navigation Links Highlighting -----

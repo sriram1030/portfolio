@@ -147,7 +147,6 @@ ul {
 .boot-complete #boot-overlay {
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.8s ease;
 }
 
 /* Blinking Block Cursor */
@@ -177,13 +176,6 @@ ul {
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-color);
     opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.8s ease 0.8s, transform 0.8s ease 0.8s;
-}
-
-.boot-complete .navbar {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 .nav-container {
@@ -224,11 +216,6 @@ ul {
     margin: 6rem auto 3rem;
     padding: 0 2rem;
     opacity: 0;
-    transition: opacity 1s ease 0.9s;
-}
-
-.boot-complete .console-wrapper {
-    opacity: 1;
 }
 
 /* Decor ASCII Line */
@@ -363,7 +350,6 @@ ul {
         inset 10px 10px 25px rgba(255, 255, 255, 0.05),
         inset -10px -10px 25px rgba(0, 0, 0, 0.8),
         0 0 20px rgba(56, 189, 248, 0.1);
-    animation: floatPlanet 12s ease-in-out infinite alternate;
 }
 
 .planet-surface {
@@ -715,13 +701,6 @@ ul {
 /* ----- Reveal on Scroll ----- */
 .reveal {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
 }
 
 /* ----- Responsive Adjustments ----- */

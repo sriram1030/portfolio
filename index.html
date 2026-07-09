@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>root@sriram:~$ ssh space-station</title>
+    <meta name="description" content="Sriram S - Linux Command Console Portfolio. Deep-space research station systems developer.">
+    <!-- Fonts: JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="booting">
+
+    <!-- Linux Boot Screen Overlay -->
+    <div id="boot-overlay" class="boot-screen">
+        <div class="boot-terminal">
+            <span class="prompt">boot@space-station:~$</span> <span id="boot-command"></span><span class="cursor blinking-block"></span>
+            <div id="boot-logs" class="boot-logs"></div>
+        </div>
+    </div>
+
+    <!-- Space Background & Anomaly -->
+    <div class="space-bg">
+        <div class="stars" id="stars-field"></div>
+        <div class="nebula"></div>
+        <div class="planet-anomaly"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">root@sriram:~$</div>
+            <nav class="nav-menu">
+                <a href="#about" class="nav-link">ABOUT</a>
+                <a href="#skills" class="nav-link">SKILLS</a>
+                <a href="#projects" class="nav-link">PROJECTS</a>
+                <a href="#experience" class="nav-link">EXPERIENCE</a>
+                <a href="#contact" class="nav-link">CONTACT</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Command Console -->
+    <main class="console-wrapper">
+        <!-- Top Terminal Decorative Header -->
+        <div class="terminal-decor-header">
+            <pre class="decor-ascii">
+┌──────────────────────────────────────────────┐
+root@sriram:~$ portfolio --launch
+└──────────────────────────────────────────────┘</pre>
+        </div>
+
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="hero-grid">
+                <div class="hero-text-block">
+                    <div class="command-line"><span class="accent-prompt">&gt;</span> whoami</div>
+                    <h1 class="dev-name">SRIRAM S</h1>
+                    <div class="taglines">
+                        <span class="tag-item">Web Developer</span>
+                        <span class="tag-item">Android Developer</span>
+                        <span class="tag-item">Digital Marketer</span>
+                        <span class="tag-item">AI Automation Enthusiast</span>
+                    </div>
+                    <p class="hero-subtext">
+                        Building websites, Android applications and AI-powered workflows that solve real business problems.
+                    </p>
+                    <div class="status-badge">
+                        <span class="pulse-indicator"></span>
+                        <span class="status-msg">AVAILABLE FOR WORK</span>
+                    </div>
+                    <div class="hero-actions">
+                        <a href="#projects" class="terminal-btn">[ View Projects ]</a>
+                        <a href="assets/resume.pdf" download class="terminal-btn">[ Download Resume ]</a>
+                    </div>
+                </div>
+                <div class="hero-planet-block">
+                    <!-- CSS generated planet -->
+                    <div class="css-planet">
+                        <div class="planet-surface"></div>
+                        <div class="planet-ring"></div>
+                        <div class="planet-shadow"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="console-section reveal">
+            <h2 class="section-heading">&gt; ABOUT</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        I'm Sriram, a Web & Mobile Developer from Chennai with over two years of professional experience building websites, Android applications, and digital marketing solutions. I enjoy taking projects from concept to deployment, whether it's creating WordPress websites, developing Android apps in Kotlin, managing servers, optimizing SEO, or building AI-powered automations.
+                    </p>
+                    <p>
+                        Currently, I'm expanding into Docker, Supabase, backend development, Flutter, AI agents, and scalable cloud-native applications. I enjoy learning modern technologies while creating practical software that helps businesses and people.
+                    </p>
+                </div>
+                <div class="focus-block">
+                    <div class="terminal-card">
+                        <div class="card-header">$ cat current_focus.txt</div>
+                        <div class="card-body text-monospace">
+                            <ul>
+                                <li>• Docker</li>
+                                <li>• Supabase</li>
+                                <li>• Flutter</li>
+                                <li>• AI Automation</li>
+                                <li>• Modern Backend</li>
+                                <li>• DevOps</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="console-section reveal">
+            <h2 class="section-heading">&gt; SKILLS</h2>
+            <div class="skills-grid">
+                <!-- Frontend Directory -->
+                <div class="directory-card">
+                    <h3 class="directory-title">📁 Frontend</h3>
+                    <ul class="directory-list">
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                        <li>WordPress</li>
+                        <li>Elementor</li>
+                    </ul>
+                </div>
+                <!-- Mobile Directory -->
+                <div class="directory-card">
+                    <h3 class="directory-title">📁 Mobile</h3>
+                    <ul class="directory-list">
+                        <li>Kotlin</li>
+                        <li>Java</li>
+                        <li>Android Studio</li>
+                    </ul>
+                </div>
+                <!-- Marketing Directory -->
+                <div class="directory-card">
+                    <h3 class="directory-title">📁 Marketing</h3>
+                    <ul class="directory-list">
+                        <li>Google Ads</li>
+                        <li>SEO</li>
+                        <li>Meta Ads</li>
+                    </ul>
+                </div>
+                <!-- Backend Directory -->
+                <div class="directory-card">
+                    <h3 class="directory-title">📁 Backend</h3>
+                    <ul class="directory-list">
+                        <li>REST APIs</li>
+                        <li>Supabase</li>
+                        <li>Firebase</li>
+                    </ul>
+                </div>
+                <!-- Infrastructure Directory -->
+                <div class="directory-card">
+                    <h3 class="directory-title">📁 Infrastructure</h3>
+                    <ul class="directory-list">
+                        <li>Docker</li>
+                        <li>Linux</li>
+                        <li>Hosting</li>
+                        <li>Domains</li>
+                    </ul>
+                </div>
+                <!-- Automation Directory -->
+                <div class="directory-card">
+                    <h3 class="directory-title">📁 Automation</h3>
+                    <ul class="directory-list">
+                        <li>n8n</li>
+                        <li>AI</li>
+                        <li>API Integration</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="console-section reveal">
+            <h2 class="section-heading">&gt; PROJECTS</h2>
+            <div class="projects-list">
+                <!-- Project 01 -->
+                <div class="project-item-card">
+                    <div class="project-meta">
+                        <span class="project-id">Project 01</span>
+                    </div>
+                    <div class="project-details">
+                        <h3 class="project-title">Church Sermon Android App</h3>
+                        <p class="project-description">Native Android application for streaming sermons using REST APIs and Gemini AI for automated transcription, summarization, and query processing.</p>
+                    </div>
+                </div>
+                <!-- Project 02 -->
+                <div class="project-item-card">
+                    <div class="project-meta">
+                        <span class="project-id">Project 02</span>
+                    </div>
+                    <div class="project-details">
+                        <h3 class="project-title">Weather Satellite App</h3>
+                        <p class="project-description">Displays real-time weather satellite imagery for India, overlaying radar metrics and environmental sensor metrics from external APIs.</p>
+                    </div>
+                </div>
+                <!-- Project 03 -->
+                <div class="project-item-card">
+                    <div class="project-meta">
+                        <span class="project-id">Project 03</span>
+                    </div>
+                    <div class="project-details">
+                        <h3 class="project-title">Grafikos Websites</h3>
+                        <p class="project-description">Developed and maintained multiple high-performance client websites using WordPress and Elementor, optimizing UX speeds and Google Lighthouse metrics.</p>
+                    </div>
+                </div>
+                <!-- Project 04 -->
+                <div class="project-item-card">
+                    <div class="project-meta">
+                        <span class="project-id">Project 04</span>
+                    </div>
+                    <div class="project-details">
+                        <h3 class="project-title">AI Workflow Automation</h3>
+                        <p class="project-description">Automated repetitive business processes, internal logging, and cross-channel message syncing using AI tools and n8n pipelines.</p>
+                    </div>
+                </div>
+                <!-- Project 05 -->
+                <div class="project-item-card">
+                    <div class="project-meta">
+                        <span class="project-id">Project 05</span>
+                    </div>
+                    <div class="project-details">
+                        <h3 class="project-title">Space Portfolio</h3>
+                        <p class="project-description">This portfolio itself, designed to look like a secure command interface on an orbital space station. Highly lightweight and optimized.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="console-section reveal">
+            <h2 class="section-heading">&gt; EXPERIENCE</h2>
+            <div class="experience-block">
+                <div class="command-line"><span class="accent-prompt">root@sriram:~$</span> history</div>
+                <div class="timeline-container">
+                    <div class="timeline-log-header">2023 &gt; Joined Grafikos</div>
+                    <ul class="timeline-bullets">
+                        <li>Designed websites using custom methodologies and page builders</li>
+                        <li>Built native Android applications from structural layout to release packages</li>
+                        <li>Managed VPS hosting configurations, system servers, and domains</li>
+                        <li>SEO optimization (semantic indexing, speed tuning, sitemap configurations)</li>
+                        <li>Google Ads campaign creation and budget performance tracking</li>
+                        <li>Client Support, system onboarding, and technical training</li>
+                        <li>AI-assisted development to enhance deployment cycles</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="console-section reveal">
+            <h2 class="section-heading">&gt; CONTACT</h2>
+            <div class="contact-details-grid">
+                <div class="details-card">
+                    <div class="detail-row">
+                        <span class="detail-label">Location</span>
+                        <span class="detail-value">Chennai, Tamil Nadu, India</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Phone</span>
+                        <span class="detail-value"><a href="tel:+918270852959" class="contact-anchor">+91 8270852959</a></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Email</span>
+                        <span class="detail-value"><a href="mailto:sriramsri1030@gmail.com" class="contact-anchor">sriramsri1030@gmail.com</a></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">GitHub</span>
+                        <span class="detail-value"><a href="https://github.com/sriram1030" target="_blank" rel="noopener" class="contact-anchor">https://github.com/sriram1030</a></span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">LinkedIn</span>
+                        <span class="detail-value"><a href="https://www.linkedin.com/in/sriram1030/" target="_blank" rel="noopener" class="contact-anchor">https://www.linkedin.com/in/sriram1030/</a></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fun Terminal Command Shell -->
+        <section class="interactive-terminal-section reveal">
+            <div class="terminal-card interactive-cli">
+                <div class="card-header">root@sriram:~$ ssh_shell_console</div>
+                <div class="cli-body" id="cli-console">
+                    <div class="cli-line">Type <span class="highlight">help</span> to view available operations.</div>
+                    <div id="cli-output-list"></div>
+                    <div class="cli-input-row">
+                        <span class="prompt">root@sriram:~$</span>
+                        <input type="text" id="cli-input" autofocus autocomplete="off" spellcheck="false">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="console-footer">
+            <div class="command-line"><span class="accent-prompt">root@sriram:~$</span> logout</div>
+            <div class="logout-msg">Connection closed.</div>
+            <div class="footer-divider">━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+            <div class="footer-meta">
+                <span>Built with</span>
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>Vanilla JavaScript</span>
+            </div>
+            <div class="footer-divider">━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+            <p class="copyright">&copy; 2026 SRIRAM S</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

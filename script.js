@@ -254,4 +254,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (cliInput) {
         cliInput.addEventListener('keydown', handleCliInput);
     }
+
+    if (cliConsole) {
+        cliConsole.addEventListener('click', () => {
+            cliInput.focus();
+        });
+    }
 });

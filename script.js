@@ -167,6 +167,28 @@ function initActiveNavLinks() {
     });
 }
 
+// ----- Responsive Mobile Navigation Menu -----
+function initMobileMenu() {
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    if (!navToggle || !navMenu) return;
+
+    navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    // Close menu when clicking link
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+}
+
 // ----- Core Application Initializer -----
 document.addEventListener('DOMContentLoaded', () => {
     initStarfield();
@@ -174,4 +196,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initTyping();
     initScrollReveal();
     initActiveNavLinks();
+    initMobileMenu();
 });

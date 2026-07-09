@@ -131,6 +131,10 @@ body {
     text-shadow: var(--glow-text);
 }
 
+.nav-toggle {
+    display: none;
+}
+
 .nav-menu {
     display: flex;
     gap: 1.8rem;
@@ -641,15 +645,73 @@ body {
 /* ----- Responsive Rules ----- */
 @media (max-width: 768px) {
     .nav-brand {
-        display: none;
+        display: block;
     }
     
     .nav-container {
-        justify-content: center;
+        justify-content: space-between;
     }
     
+    .nav-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 20px;
+        height: 14px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        z-index: 120;
+        padding: 0;
+    }
+    
+    .nav-toggle .bar {
+        width: 100%;
+        height: 1px;
+        background-color: var(--text-primary);
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+    
+    .nav-toggle.active .bar:nth-child(1) {
+        transform: translateY(6.5px) rotate(45deg);
+        background-color: var(--command-color);
+    }
+    
+    .nav-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .nav-toggle.active .bar:nth-child(3) {
+        transform: translateY(-6.5px) rotate(-45deg);
+        background-color: var(--command-color);
+    }
+
     .nav-menu {
-        gap: 1.2rem;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 250px;
+        height: 100vh;
+        background: rgba(3, 7, 18, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-left: 1px solid var(--border-color);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+        transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 110;
+        padding: 2rem;
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    .nav-link {
+        font-size: 13px;
+        letter-spacing: 0.1em;
     }
 
     .hero-name {

@@ -88,9 +88,28 @@ function runBootSequence() {
             setTimeout(() => {
                 document.body.classList.add('boot-complete');
                 document.body.classList.remove('booting');
-                window.scrollTo(0, 0);
+                if (cliInput) {
+                    cliInput.disabled = false;
+                }
+                
+                // Aggressive scroll resetting to override browser scroll memory and layout-shift events
+                let scrollCount = 0;
+                const forceScrollTop = setInterval(() => {
+                    window.scrollTo(0, 0);
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
+                    scrollCount++;
+                    if (scrollCount >= 15) {
+                        clearInterval(forceScrollTop);
+                    }
+                }, 40);
             }, 700);
         }
+    }
+
+    // Disable input during boot to prevent browser auto-scroll on focus
+    if (cliInput) {
+        cliInput.disabled = true;
     }
 
     // Trigger typing after brief initial pause

@@ -1,3 +1,9 @@
+// ----- Force Page Scroll to Top on Load -----
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 // ----- Custom Starfield -----
 function initStarfield() {
     const starField = document.getElementById('stars-field');
@@ -82,6 +88,7 @@ function runBootSequence() {
             setTimeout(() => {
                 document.body.classList.add('boot-complete');
                 document.body.classList.remove('booting');
+                window.scrollTo(0, 0);
             }, 700);
         }
     }

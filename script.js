@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SCRIPT.JS - SPACE OBSERVATORY INTERACTIONS (VANILLA JS ONLY)
+   SCRIPT.JS - SPACECRAFT DEEP SPACE LOG INTERACTIONS (VANILLA JS ONLY)
    ========================================================================== */
 
 // ----- Force Page Scroll to Top on Load -----
@@ -8,45 +8,43 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
-// For page-reload override
 window.addEventListener('load', () => {
     window.scrollTo(0, 0);
-    
-    // Trigger telemetry count-up observer
-    initTelemetryObserver();
 });
 
-// ----- Custom Starfield Generator -----
+// ----- Drifting Starfield Generator -----
 function initStarfield() {
     const starField = document.getElementById('stars-field');
     if (!starField) return;
-    
-    const numStars = 60;
+
+    const numStars = 150; // Hundreds of tiny stars as requested
     const fragment = document.createDocumentFragment();
 
     for (let i = 0; i < numStars; i++) {
         const star = document.createElement('div');
         star.classList.add('star');
-        
+
         const x = Math.random() * 100;
         const y = Math.random() * 100;
-        const size = Math.random() * 1.8 + 0.4; // 0.4px to 2.2px
-        const duration = Math.random() * 3 + 3; // 3s to 6s twinkling
-        const delay = Math.random() * 5;
+        const size = Math.random() * 1.3 + 0.3; // 0.3px to 1.6px (tiny stars)
         
-        // Random drift coordinates for CSS custom properties
-        const driftX = `${(Math.random() - 0.5) * 40}px`;
-        const driftY = `${(Math.random() - 0.5) * 40}px`;
-        
+        // Random slow twinkle and animation timings
+        const twinkleDuration = Math.random() * 4 + 4; // 4s to 8s
+        const twinkleDelay = Math.random() * 6;
+
+        // Custom properties for very slow drift
+        const driftX = `${(Math.random() - 0.5) * 20}px`;
+        const driftY = `${(Math.random() - 0.5) * 20}px`;
+
         star.style.left = `${x}%`;
         star.style.top = `${y}%`;
         star.style.width = `${size}px`;
         star.style.height = `${size}px`;
-        star.style.animationDuration = `${duration}s`;
-        star.style.animationDelay = `${delay}s`;
+        star.style.animationDuration = `${twinkleDuration}s, 70s`; // slow drift
+        star.style.animationDelay = `${twinkleDelay}s, 0s`;
         star.style.setProperty('--drift-x', driftX);
         star.style.setProperty('--drift-y', driftY);
-        
+
         fragment.appendChild(star);
     }
     starField.appendChild(fragment);
@@ -59,26 +57,26 @@ function spawnShootingStar() {
 
     const star = document.createElement('div');
     star.className = 'shooting-star';
-    
-    // Pick a starting point in the top-left area
-    const startX = Math.random() * (window.innerWidth * 0.7);
-    const startY = Math.random() * (window.innerHeight * 0.4);
-    
+
+    // Start in top-left region
+    const startX = Math.random() * (window.innerWidth * 0.75);
+    const startY = Math.random() * (window.innerHeight * 0.45);
+
     star.style.left = `${startX}px`;
     star.style.top = `${startY}px`;
-    
+
     spaceBg.appendChild(star);
-    
-    // Force browser reflow to enable transition trigger
+
+    // Force browser repaint to trigger transition
     star.getBoundingClientRect();
-    
-    // Add the shoot class to trigger CSS transition
+
+    // Shoot!
     star.classList.add('shoot');
-    
+
     // Remove element after transition completes
     setTimeout(() => {
         star.remove();
-    }, 1300);
+    }, 1600);
 }
 
 // Loop to trigger shooting stars every 15-20 seconds
@@ -90,201 +88,90 @@ function initShootingStars() {
             scheduleNext();
         }, delay);
     }
-    // Spawn initial shooting star after 6s
+    // First spawn after 8 seconds
     setTimeout(() => {
         spawnShootingStar();
         scheduleNext();
-    }, 6000);
+    }, 8000);
 }
 
-// ----- Parallax Background Shift on Mouse Move -----
-function initMouseParallax() {
-    const spaceBg = document.querySelector('.space-bg');
-    if (!spaceBg) return;
+// ----- Handcrafted Typing Animation -----
+function initTyping() {
+    const targetText = "> Hello.";
+    const typingContainer = document.getElementById('typing-hello');
+    if (!typingContainer) return;
 
-    document.addEventListener('mousemove', (e) => {
-        // Calculate offset percentage relative to screen center
-        const xOffset = (e.clientX / window.innerWidth - 0.5) * 25; // max 12.5px shift
-        const yOffset = (e.clientY / window.innerHeight - 0.5) * 25;
-        
-        spaceBg.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-    });
-}
+    typingContainer.textContent = ""; // Clear loader placeholder
+    let charIndex = 0;
 
-// ----- Cursor Star Trail -----
-function initCursorTrail() {
-    let lastTrailTime = 0;
-    
-    document.addEventListener('mousemove', (e) => {
-        const now = Date.now();
-        if (now - lastTrailTime < 60) return; // Throttling star spawns (approx. 16 per sec)
-        lastTrailTime = now;
-        
-        const star = document.createElement('div');
-        star.className = 'cursor-star';
-        star.style.left = `${e.pageX}px`;
-        star.style.top = `${e.pageY}px`;
-        
-        document.body.appendChild(star);
-        
-        // Random drift offset coordinates
-        const driftX = (Math.random() - 0.5) * 45;
-        const driftY = (Math.random() - 0.5) * 45 + 15; // drift downwards slightly
-        
-        // Force reflow
-        star.getBoundingClientRect();
-        
-        // Transition down and fade out
-        setTimeout(() => {
-            star.style.transform = `translate(calc(-50% + ${driftX}px), calc(-50% + ${driftY}px)) scale(0.1)`;
-            star.style.opacity = '0';
-        }, 50);
-        
-        // Cleanup element
-        setTimeout(() => {
-            star.remove();
-        }, 850);
-    });
-}
-
-// ----- Scroll Progress Orbital Ring Update -----
-function initOrbitalProgress() {
-    const fillCircle = document.querySelector('.orbital-ring-fill');
-    const progressText = document.querySelector('.orbital-progress-text');
-    if (!fillCircle) return;
-
-    function updateProgress() {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        
-        let scrollPercent = 0;
-        if (docHeight > 0) {
-            scrollPercent = Math.min(Math.round((scrollTop / docHeight) * 100), 100);
-        }
-        
-        // Dynamic circumference calculation based on current SVG size
-        const radius = fillCircle.r.baseVal.value;
-        const circumference = 2 * Math.PI * radius;
-        
-        // Calculate stroke offset
-        const offset = circumference - (scrollPercent / 100) * circumference;
-        
-        fillCircle.style.strokeDasharray = `${circumference}`;
-        fillCircle.style.strokeDashoffset = `${offset}`;
-        
-        if (progressText) {
-            progressText.textContent = `${scrollPercent}%`;
+    function typeChar() {
+        if (charIndex < targetText.length) {
+            typingContainer.textContent += targetText.charAt(charIndex);
+            charIndex++;
+            
+            // Random typing speed interval for natural typewriter effect (90ms to 160ms)
+            const speed = Math.random() * 70 + 90;
+            setTimeout(typeChar, speed);
         }
     }
 
-    window.addEventListener('scroll', updateProgress);
-    window.addEventListener('resize', updateProgress);
-    updateProgress();
+    // Trigger typing after a brief delay
+    setTimeout(typeChar, 600);
 }
 
-// ----- Intersection Observer for Scroll Reveals -----
+// ----- Scroll Reveal Animation Setup -----
 function initScrollReveal() {
     const revealElements = document.querySelectorAll('.reveal');
-    
-    const observer = new IntersectionObserver((entries) => {
+    if (revealElements.length === 0) return;
+
+    const observerOption = {
+        root: null,
+        threshold: 0.08
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                observer.unobserve(entry.target); // trigger animation once
+                revealObserver.unobserve(entry.target); // Reveal once
             }
         });
-    }, { threshold: 0.1 });
+    }, observerOption);
 
-    revealElements.forEach(el => observer.observe(el));
+    revealElements.forEach(el => revealObserver.observe(el));
 }
 
-// ----- Active Section Navbar Highlighting -----
-function initNavHighlight() {
+// ----- Scroll Section Link Highlighter -----
+function initActiveNavLinks() {
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     window.addEventListener('scroll', () => {
-        let current = '';
-        const scrollY = window.pageYOffset;
-        
+        let activeSectionId = '';
+        const scrollPosition = window.pageYOffset;
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (scrollY >= (sectionTop - 180)) {
-                current = section.getAttribute('id');
+            // Highlight link slightly before section hits top
+            if (scrollPosition >= (sectionTop - 150)) {
+                activeSectionId = section.getAttribute('id');
             }
         });
 
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
+            if (link.getAttribute('href') === `#${activeSectionId}`) {
                 link.classList.add('active');
             }
         });
     });
 }
 
-// ----- Telemetry Count Up Animator -----
-function animateNumber(element, targetVal) {
-    let startVal = 0;
-    const duration = 1500; // 1.5 seconds
-    const startTime = performance.now();
-    
-    function updateNum(currentTime) {
-        const elapsedTime = currentTime - startTime;
-        const progress = Math.min(elapsedTime / duration, 1);
-        
-        // Easing function: easeOutQuad
-        const easedProgress = progress * (2 - progress);
-        const currentVal = Math.floor(startVal + easedProgress * (targetVal - startVal));
-        
-        element.textContent = `${currentVal}+`;
-        if (targetVal === 2) {
-            element.textContent = `${currentVal}+ Years`;
-        }
-        
-        if (progress < 1) {
-            requestAnimationFrame(updateNum);
-        } else {
-            element.textContent = `${targetVal}+`;
-            if (targetVal === 2) {
-                element.textContent = `2+ Years`;
-            }
-        }
-    }
-    
-    requestAnimationFrame(updateNum);
-}
-
-function initTelemetryObserver() {
-    const statsSection = document.querySelector('.statistics-section');
-    if (!statsSection) return;
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const statNums = document.querySelectorAll('.stat-num');
-                statNums.forEach(numEl => {
-                    const target = parseInt(numEl.getAttribute('data-target'), 10);
-                    if (!isNaN(target)) {
-                        animateNumber(numEl, target);
-                    }
-                });
-                observer.unobserve(statsSection); // animate once
-            }
-        });
-    }, { threshold: 0.2 });
-
-    observer.observe(statsSection);
-}
-
-// ----- Core Application Launch -----
+// ----- Core Application Initializer -----
 document.addEventListener('DOMContentLoaded', () => {
     initStarfield();
     initShootingStars();
-    initMouseParallax();
-    initCursorTrail();
-    initOrbitalProgress();
+    initTyping();
     initScrollReveal();
-    initNavHighlight();
+    initActiveNavLinks();
 });

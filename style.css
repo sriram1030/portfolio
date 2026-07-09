@@ -1,31 +1,25 @@
 /* ==========================================================================
-   STYLE.CSS - SPACE OBSERVATORY THEME
+   STYLE.CSS - SPACECRAFT DEEP SPACE LOG THEME
    ========================================================================== */
 
-/* ----- Foundational Tokens & CSS Variables ----- */
+/* ----- CSS Variables ----- */
 :root {
-    --bg-space: #04070D;
-    --bg-navy: #081120;
-    --card-bg: rgba(255, 255, 255, 0.03);
-    --card-hover: rgba(255, 255, 255, 0.06);
+    --bg-color: #030712;
+    --text-primary: #E5E7EB;
+    --text-muted: #94A3B8;
+    
+    --command-color: #7CFF7C;       /* Terminal Green */
+    --accent: #FACC15;              /* Secondary Accent Yellow */
+    --link-color: #38BDF8;          /* Light Blue Links */
     --border-color: rgba(255, 255, 255, 0.08);
-    --border-hover: rgba(255, 255, 255, 0.16);
-    
-    --text-primary: #F4F7FA;
-    --text-muted: #8C9BAA;
-    
-    --accent: #69D2FF;      /* Blue */
-    --accent-purple: #A970FF;
-    --accent-success: #65FFAE;
     
     --font-mono: 'JetBrains Mono', monospace;
-    --font-sans: 'Outfit', sans-serif;
     
-    --glow-glow: 0 0 20px rgba(105, 210, 255, 0.15);
-    --glow-success: 0 0 20px rgba(101, 255, 174, 0.2);
+    --glow-text: 0 0 8px rgba(124, 255, 124, 0.4);
+    --glow-link: 0 0 8px rgba(56, 189, 248, 0.4);
 }
 
-/* ----- Global Reset & Base Styling ----- */
+/* ----- Global Resets ----- */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -34,36 +28,17 @@
 }
 
 body {
-    background-color: var(--bg-space);
+    background-color: var(--bg-color);
     color: var(--text-primary);
-    font-family: var(--font-sans);
-    font-weight: 300;
-    line-height: 1.6;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.8;
+    letter-spacing: 0.03em;
     overflow-x: hidden;
     position: relative;
-    cursor: default;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-sans);
-    color: var(--text-primary);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-}
-
-.text-mono {
-    font-family: var(--font-mono);
-}
-
-.accent-text {
-    color: var(--accent);
-}
-
-.success-text {
-    color: var(--accent-success);
-}
-
-/* ----- Background Environment (Space, Stars, Nebula) ----- */
+/* ----- Background (Drifting Starfield) ----- */
 .space-bg {
     position: fixed;
     top: 0;
@@ -72,12 +47,10 @@ h1, h2, h3, h4, h5, h6 {
     height: 100vh;
     z-index: -10;
     overflow: hidden;
-    background: radial-gradient(circle at 50% 50%, var(--bg-navy) 0%, var(--bg-space) 100%);
+    background-color: var(--bg-color);
     pointer-events: none;
-    transition: transform 0.2s ease-out; /* Shifted slightly by mouse */
 }
 
-/* Twinkling Starfield */
 .stars {
     position: absolute;
     width: 100%;
@@ -90,213 +63,148 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     background-color: #ffffff;
     border-radius: 50%;
-    opacity: 0;
-    animation: twinkle 6s infinite ease-in-out, drift 40s infinite ease-in-out;
+    opacity: 0.1;
+    animation: starTwinkle 8s infinite ease-in-out, starDrift 60s infinite linear;
 }
 
-@keyframes twinkle {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 0.8; }
+@keyframes starTwinkle {
+    0%, 100% { opacity: 0.15; }
+    50% { opacity: 0.85; }
 }
 
-@keyframes drift {
-    0%, 100% { transform: translate(0, 0); }
-    50% { transform: translate(var(--drift-x, 20px), var(--drift-y, -20px)); }
+@keyframes starDrift {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(var(--drift-x, 25px), var(--drift-y, -25px)); }
 }
 
-/* Soft Nebula Gradient overlay */
-.nebula-bg {
-    position: absolute;
-    top: 15%;
-    left: 10%;
-    width: 80vw;
-    height: 80vw;
-    background: radial-gradient(circle, rgba(169, 112, 255, 0.03) 0%, rgba(105, 210, 255, 0.02) 40%, transparent 80%);
-    filter: blur(120px);
-    pointer-events: none;
-}
-
-/* Huge Blurred Saturn Background Planet */
-.giant-planet {
-    position: absolute;
-    top: 40%;
-    right: -200px;
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(105, 210, 255, 0.05) 0%, rgba(8, 17, 32, 0.6) 60%, rgba(4, 7, 13, 0.95) 100%);
-    box-shadow: 
-        inset 10px 10px 40px rgba(255, 255, 255, 0.01),
-        0 0 100px rgba(105, 210, 255, 0.03);
-    filter: blur(4px);
-    pointer-events: none;
-}
-
-/* Floating Satellite Track */
-.satellite-orbit-line {
-    position: absolute;
-    top: 25%;
-    left: -10%;
-    width: 120vw;
-    height: 80vh;
-    border: 1px dashed rgba(255, 255, 255, 0.02);
-    border-radius: 50%;
-    transform: rotate(-15deg);
-    pointer-events: none;
-}
-
+/* Shooting Stars */
 .shooting-star {
     position: absolute;
     height: 1px;
-    background: linear-gradient(90deg, rgba(105, 210, 255, 0.9) 0%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(90deg, rgba(250, 204, 21, 0.8) 0%, rgba(255, 255, 255, 0) 100%);
     opacity: 0;
     transform: rotate(30deg);
     pointer-events: none;
-    box-shadow: 0 0 6px rgba(105, 210, 255, 0.3);
     z-index: -5;
-    transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: all 1.5s cubic-bezier(0.25, 1, 0.5, 1);
     width: 0px;
 }
 
 .shooting-star.shoot {
-    opacity: 0.8;
-    width: 180px;
-    transform: translate(250px, 144px) rotate(30deg); /* 250px x, 250*tan(30deg)~144px y */
+    opacity: 0.75;
+    width: 150px;
+    transform: translate(200px, 115px) rotate(30deg);
 }
 
-/* Floating Stars cursor element styling */
-.cursor-star {
-    position: absolute;
-    width: 3px;
-    height: 3px;
-    background-color: var(--accent);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--accent);
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-/* ----- Scroll Progress Orbital Ring ----- */
-.orbital-progress-container {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    width: 80px;
-    height: 80px;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(4, 7, 13, 0.6);
-    border-radius: 50%;
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    pointer-events: none;
-}
-
-.orbital-ring-svg {
-    transform: rotate(-90deg);
-}
-
-.orbital-ring-bg {
-    fill: none;
-    stroke: rgba(255, 255, 255, 0.03);
-    stroke-width: 3;
-}
-
-.orbital-ring-fill {
-    fill: none;
-    stroke: var(--accent);
-    stroke-width: 3;
-    stroke-linecap: round;
-    stroke-dasharray: 220; /* 2 * PI * r (35) ≈ 219.9 */
-    stroke-dashoffset: 220;
-    transition: stroke-dashoffset 0.1s ease;
-}
-
-.orbital-progress-text {
-    position: absolute;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-muted);
-}
-
-/* ----- Transparent Glass Navbar ----- */
+/* ----- Fixed Navbar Navigation ----- */
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 200;
-    background: rgba(4, 7, 13, 0.65);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    z-index: 100;
+    background: rgba(3, 7, 18, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-color);
 }
 
 .nav-container {
-    max-width: 1200px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 1.2rem 2rem;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .nav-brand {
-    font-family: var(--font-mono);
     font-size: 13px;
+    font-weight: 700;
     color: var(--text-primary);
     text-decoration: none;
-    letter-spacing: 0.15em;
-    font-weight: 500;
-    transition: text-shadow 0.3s ease;
+    letter-spacing: 0.1em;
 }
 
 .nav-brand:hover {
-    text-shadow: 0 0 8px var(--accent);
+    color: var(--command-color);
+    text-shadow: var(--glow-text);
 }
 
 .nav-menu {
     display: flex;
-    gap: 2rem;
-    align-items: center;
+    gap: 1.8rem;
 }
 
 .nav-link {
-    font-family: var(--font-mono);
     font-size: 11px;
     color: var(--text-muted);
     text-decoration: none;
-    letter-spacing: 0.1em;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+    letter-spacing: 0.05em;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
 }
 
 .nav-link:hover,
 .nav-link.active {
     color: var(--text-primary);
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
 }
 
 .resume-link {
-    color: var(--accent);
+    color: var(--link-color);
 }
 
-/* ----- Main Layout Wrap ----- */
-.observatory-layout {
-    max-width: 1150px;
+.resume-link:hover {
+    text-shadow: var(--glow-link);
+}
+
+/* ----- Layout Container ----- */
+.log-container {
+    max-width: 900px;
     margin: 0 auto;
     padding: 0 2rem;
 }
 
-/* ----- Reveal-on-Scroll Base ----- */
+/* ----- Section Generic Styles ----- */
+.section {
+    padding: 6.5rem 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.section:last-of-type {
+    border-bottom: none;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.01em;
+}
+
+/* ----- Scroll Reveal Classes ----- */
 .reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(20px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .reveal.active {
@@ -308,108 +216,133 @@ h1, h2, h3, h4, h5, h6 {
 .hero-section {
     min-height: 100vh;
     display: flex;
-    align-items: center;
-    padding-top: 6rem;
-    padding-bottom: 3rem;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 5rem;
 }
 
-.hero-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 4rem;
-    align-items: center;
-    width: 100%;
+.terminal-intro {
+    font-size: 1.6rem;
+    color: var(--command-color);
+    margin-bottom: 1.5rem;
+    text-shadow: var(--glow-text);
 }
 
-/* Mission Log Metadata Box */
-.mission-log-box {
-    border: 1px solid var(--border-color);
-    background: var(--card-bg);
-    padding: 1.2rem;
-    max-width: 320px;
-    margin-bottom: 2.5rem;
-    backdrop-filter: blur(10px);
-}
-
-.log-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.6rem;
-    font-size: 11px;
-}
-
-.log-row:last-child {
-    margin-bottom: 0;
-    border-top: 1px solid var(--border-color);
-    padding-top: 0.6rem;
-}
-
-.log-label {
-    color: var(--text-muted);
-    font-family: var(--font-mono);
-}
-
-.log-value {
-    font-family: var(--font-mono);
-    font-weight: 500;
-}
-
-.status-online {
-    color: var(--accent-success);
-    text-shadow: 0 0 6px rgba(101, 255, 174, 0.4);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.status-online::before {
-    content: '';
+.cursor {
     display: inline-block;
-    width: 6px;
-    height: 6px;
-    background-color: var(--accent-success);
-    border-radius: 50%;
-    box-shadow: 0 0 8px var(--accent-success);
+    color: var(--command-color);
+    animation: cursorBlink 1s step-end infinite;
 }
 
-/* Hero Typography */
-.dev-name {
-    font-size: 4.8rem;
-    font-weight: 800;
-    line-height: 1;
+@keyframes cursorBlink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+.hero-intro-text {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+}
+
+.hero-name {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
     margin-bottom: 1.2rem;
-    letter-spacing: -0.03em;
-    background: linear-gradient(135deg, #ffffff 0%, #a2b2c4 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
 }
 
-.taglines {
+.hero-roles {
     display: flex;
     flex-wrap: wrap;
     gap: 0.8rem;
-    margin-bottom: 2rem;
+    align-items: center;
+    margin-bottom: 1.8rem;
 }
 
-.tag-item {
-    font-family: var(--font-mono);
-    font-size: 11px;
+.role-tag {
+    font-size: 12px;
     color: var(--accent);
-    background: rgba(105, 210, 255, 0.05);
-    border: 1px solid rgba(105, 210, 255, 0.12);
-    padding: 0.3rem 0.8rem;
-    border-radius: 2px;
+}
+
+.role-separator {
+    font-size: 12px;
+    color: var(--border-color);
 }
 
 .hero-subtext {
-    font-size: 1.1rem;
-    color: var(--text-muted);
-    max-width: 520px;
-    margin-bottom: 3rem;
+    font-size: 1rem;
+    color: var(--text-primary);
+    max-width: 580px;
+    margin-bottom: 2.2rem;
     line-height: 1.7;
 }
 
-/* Buttons */
+/* Pulsing Status Badge */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2.5rem;
+    font-size: 11px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    background-color: var(--command-color);
+    border-radius: 50%;
+    box-shadow: var(--glow-text);
+    animation: statusPulse 2s infinite ease-in-out;
+}
+
+@keyframes statusPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; box-shadow: 0 0 10px var(--command-color); }
+}
+
+.status-label {
+    color: var(--text-muted);
+}
+
+/* Meta Grid details */
+.meta-log-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    margin-bottom: 2.5rem;
+    max-width: 480px;
+}
+
+.meta-row {
+    display: flex;
+    font-size: 12px;
+}
+
+.meta-lbl {
+    color: var(--text-muted);
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.meta-val {
+    color: var(--text-primary);
+}
+
+.text-link {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: text-shadow 0.3s ease;
+}
+
+.text-link:hover {
+    text-shadow: var(--glow-link);
+}
+
+/* Button Actions */
 .hero-actions {
     display: flex;
     gap: 1.5rem;
@@ -420,24 +353,23 @@ h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-mono);
     font-size: 12px;
     text-decoration: none;
-    letter-spacing: 0.08em;
-    padding: 0.9rem 1.8rem;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 0.8rem 1.6rem;
     border-radius: 2px;
+    transition: all 0.3s ease;
 }
 
 .btn-primary {
     background-color: var(--text-primary);
-    color: var(--bg-space);
+    color: var(--bg-color);
     border: 1px solid var(--text-primary);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .btn-primary:hover {
     background-color: transparent;
     color: var(--text-primary);
-    box-shadow: var(--glow-glow);
-    border-color: var(--accent);
+    border-color: var(--command-color);
+    box-shadow: var(--glow-text);
 }
 
 .btn-secondary {
@@ -449,782 +381,264 @@ h1, h2, h3, h4, h5, h6 {
 .btn-secondary:hover {
     color: var(--text-primary);
     border-color: var(--text-primary);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
 }
 
-/* ----- CSS Saturn & Space Observatory Illustration ----- */
-.hero-illustration-block {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.space-illustration {
-    position: relative;
-    width: 320px;
-    height: 320px;
-    animation: slowSpinContainer 100s linear infinite;
-}
-
-@keyframes slowSpinContainer {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* Saturn Body */
-.saturn-planet {
-    position: absolute;
-    top: 30%;
-    left: 30%;
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #ecd0ad 0%, #bca182 40%, #7e6349 75%, #3c2415 100%);
-    box-shadow: 
-        inset 12px 12px 25px rgba(255, 255, 255, 0.03),
-        inset -12px -12px 30px rgba(0, 0, 0, 0.8),
-        0 0 50px rgba(188, 161, 130, 0.15);
-    z-index: 2;
-    transform: rotate(15deg);
-    overflow: hidden;
-}
-
-.saturn-shading {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, transparent 40%, rgba(0,0,0,0.85) 90%);
-}
-
-/* Saturn Rings */
-.saturn-rings {
-    position: absolute;
-    top: 48%;
-    left: 5%;
-    width: 290px;
-    height: 28px;
-    border-radius: 50%;
-    border: 9px double rgba(188, 161, 130, 0.35);
-    border-top: 5px solid rgba(188, 161, 130, 0.8);
-    border-bottom: 5px solid rgba(188, 161, 130, 0.1);
-    transform: rotate(-15deg);
-    z-index: 3;
-    pointer-events: none;
-    box-shadow: 0 0 15px rgba(188, 161, 130, 0.05);
-}
-
-/* Observatory Station (Satellite) */
-.observatory-station {
-    position: absolute;
-    top: 15%;
-    left: 75%;
-    width: 32px;
-    height: 32px;
-    z-index: 5;
-    animation: stationFloat 8s ease-in-out infinite alternate;
-}
-
-@keyframes stationFloat {
-    0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(-16px) rotate(5deg); }
-}
-
-.station-core {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    width: 16px;
-    height: 16px;
-    background: #a2b2c4;
-    border: 2px solid #3c4b5c;
-    border-radius: 3px;
-    box-shadow: 0 0 8px rgba(162, 178, 196, 0.3);
-}
-
-.blinking-beacon {
-    position: absolute;
-    top: -4px;
-    left: 4px;
-    width: 4px;
-    height: 4px;
-    background-color: var(--accent);
-    border-radius: 50%;
-    animation: beaconBlink 1.5s infinite steps(2, start);
-    box-shadow: 0 0 8px var(--accent);
-}
-
-@keyframes beaconBlink {
-    0%, 100% { opacity: 0; }
-    50% { opacity: 1; }
-}
-
-.station-panel {
-    position: absolute;
-    top: 12px;
-    width: 14px;
-    height: 6px;
-    background: rgba(105, 210, 255, 0.4);
-    border: 1px solid var(--accent);
-    border-radius: 1px;
-}
-
-.panel-left {
-    left: -6px;
-}
-
-.panel-right {
-    right: -6px;
-}
-
-.station-antenna {
-    position: absolute;
-    top: -2px;
-    left: 15px;
-    width: 2px;
-    height: 10px;
-    background-color: #7f8e9e;
-}
-
-/* ----- Content Sections General ----- */
-.content-section {
-    padding: 8rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.section-meta {
-    margin-bottom: 3.5rem;
-}
-
-.meta-number {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.15em;
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-.section-heading {
-    font-size: 2rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-}
-
-.section-subtitle {
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
+/* ----- About Section ----- */
+.about-content p {
     color: var(--text-muted);
-    margin-top: -2.5rem;
-    margin-bottom: 4rem;
-}
-
-/* ----- About Section (Mission 01) ----- */
-.about-grid {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.about-text p {
+    max-width: 700px;
     margin-bottom: 1.5rem;
-    color: var(--text-muted);
-    font-size: 0.98rem;
     line-height: 1.8;
 }
 
-.about-text p:last-child {
+.about-content p:last-child {
     margin-bottom: 0;
 }
 
-.about-text .lead-text {
-    font-size: 1.15rem;
-    color: var(--text-primary);
-    line-height: 1.7;
-}
-
-.telemetry-card-wrapper {
-    display: flex;
-    justify-content: center;
-}
-
-.telemetry-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 1.8rem;
-    width: 100%;
-    max-width: 400px;
-    backdrop-filter: blur(10px);
-}
-
-.telemetry-header {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.6rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.telemetry-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 11px;
-    margin-bottom: 1rem;
-    font-family: var(--font-mono);
-}
-
-.telemetry-row:last-child {
-    margin-bottom: 0;
-}
-
-.telemetry-row .lbl {
-    color: var(--text-muted);
-}
-
-.telemetry-row .val {
-    font-weight: 500;
-}
-
-/* ----- Skills Planetary Section (Mission 02) ----- */
-.skills-planetary-system {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 3.5rem 2.5rem;
-    margin: 2rem 0;
-}
-
-.planet-domain {
-    position: relative;
-    width: 160px;
-    height: 160px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-/* Planet Core Circular Design */
-.planet-body {
-    width: var(--planet-size);
-    height: var(--planet-size);
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #ffffff 0%, var(--planet-color) 45%, rgba(0,0,0,0.85) 90%);
-    box-shadow: 
-        inset 4px 4px 10px rgba(255,255,255,0.15),
-        0 0 30px rgba(255, 255, 255, 0.05),
-        0 0 15px var(--planet-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.planet-label {
-    position: absolute;
-    bottom: -2rem;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.05em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    transition: color 0.3s ease;
-}
-
-/* Tiny orbital ring surrounding individual planet on layout */
-.planet-domain::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: calc(var(--planet-size) + 40px);
-    height: calc((var(--planet-size) + 40px) / 3.5);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 50%;
-    transform: translate(-50%, -50%) rotate(-12deg);
-    pointer-events: none;
-    transition: border-color 0.3s ease;
-}
-
-/* Popover details panel */
-.planet-details-popover {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.85);
-    width: 200px;
-    background: rgba(8, 17, 32, 0.95);
-    border: 1px solid var(--accent);
-    padding: 1.2rem;
-    backdrop-filter: blur(10px);
-    opacity: 0;
-    pointer-events: none;
-    z-index: 10;
-    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7), 0 0 15px rgba(105, 210, 255, 0.15);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    border-radius: 2px;
-}
-
-.popover-title {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--accent);
-    margin-bottom: 0.8rem;
-    border-bottom: 1px solid rgba(105, 210, 255, 0.2);
-    padding-bottom: 0.4rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.popover-list {
-    list-style: none;
-    font-family: var(--font-sans);
-    font-size: 11px;
-    color: var(--text-muted);
-}
-
-.popover-list li {
-    margin-bottom: 0.4rem;
-    position: relative;
-    padding-left: 0.6rem;
-}
-
-.popover-list li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-}
-
-/* Hover effects */
-.planet-domain:hover .planet-body {
-    transform: scale(1.15);
-    box-shadow: 
-        inset 6px 6px 12px rgba(255,255,255,0.25),
-        0 0 35px var(--planet-color);
-}
-
-.planet-domain:hover::before {
-    border-color: rgba(255,255,255,0.18);
-}
-
-.planet-domain:hover .planet-label {
-    color: var(--text-primary);
-}
-
-.planet-domain:hover .planet-details-popover {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-    pointer-events: auto;
-}
-
-/* ----- Projects Satellites (Mission 03) ----- */
-.satellites-grid {
+/* ----- Skills Section ----- */
+.skills-terminal-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
-}
-
-.satellite-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 2rem 1.8rem;
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-start;
-    backdrop-filter: blur(8px);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    border-radius: 2px;
-}
-
-.satellite-visual {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255,255,255,0.02);
-    border-radius: 50%;
-    flex-shrink: 0;
-}
-
-.satellite-dish-icon {
-    font-size: 20px;
-    z-index: 2;
-}
-
-.satellite-rotate-ring {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 1px dashed rgba(255, 255, 255, 0.08);
-    border-radius: 50%;
-    animation: rotateSatelliteRing 15s linear infinite;
-}
-
-@keyframes rotateSatelliteRing {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-.satellite-content {
-    display: flex;
-    flex-direction: column;
-}
-
-.satellite-tag {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    margin-bottom: 0.4rem;
-}
-
-.satellite-title {
-    font-size: 1.15rem;
-    margin-bottom: 0.8rem;
-    font-weight: 600;
-}
-
-.satellite-description {
-    font-size: 12px;
-    color: var(--text-muted);
-    line-height: 1.6;
-}
-
-/* Satellite Card Hover states */
-.satellite-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent);
-    background: var(--card-hover);
-    box-shadow: var(--glow-glow);
-}
-
-.satellite-card:hover .satellite-rotate-ring {
-    border-color: var(--accent);
-    animation-duration: 4s; /* Rotates rapidly on hover */
-}
-
-/* ----- Quote Section ----- */
-.quote-section {
-    padding: 8rem 0;
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.observatory-quote {
-    font-size: 2.2rem;
-    font-weight: 300;
-    line-height: 1.5;
-    color: var(--text-primary);
-    font-style: italic;
-    letter-spacing: -0.01em;
-}
-
-/* ----- Timeline Journey Section (Mission 04) ----- */
-.nasa-timeline {
-    position: relative;
-    max-width: 800px;
-    margin: 2rem auto;
-    padding-left: 2rem;
-}
-
-.nasa-timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 4px;
-    width: 1px;
-    height: 100%;
-    background-color: var(--border-color);
-}
-
-.timeline-step {
-    position: relative;
-    margin-bottom: 4rem;
-}
-
-.timeline-step:last-child {
-    margin-bottom: 0;
-}
-
-.timeline-marker {
-    position: absolute;
-    left: -2rem;
-    top: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.marker-dot {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background-color: var(--text-muted);
-    border: 2px solid var(--bg-space);
-    transition: all 0.3s ease;
-}
-
-/* Glow marker dot on hover/scroll reveal active */
-.timeline-step:hover .marker-dot,
-.reveal.active .timeline-step .marker-dot {
-    background-color: var(--accent);
-    box-shadow: 0 0 10px var(--accent);
-}
-
-.timeline-box {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 2rem;
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-}
-
-.timeline-year {
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    margin-bottom: 0.6rem;
-}
-
-.timeline-title {
-    font-size: 1.15rem;
-    margin-bottom: 0.8rem;
-    font-weight: 600;
-}
-
-.timeline-detail {
-    font-size: 12.5px;
-    color: var(--text-muted);
-    line-height: 1.6;
-}
-
-.timeline-box:hover {
-    border-color: var(--accent-purple);
-    box-shadow: 0 0 15px rgba(169, 112, 255, 0.08);
-}
-
-/* ----- Telemetry Statistics Section ----- */
-.statistics-section {
-    padding: 6rem 0;
-    text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-}
-
-.telemetry-title {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-muted);
-    letter-spacing: 0.15em;
-    margin-bottom: 3.5rem;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-}
-
-.stat-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 2.2rem 1rem;
-    backdrop-filter: blur(10px);
-}
-
-.stat-num {
-    font-family: var(--font-sans);
-    font-size: 2.8rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 0.4rem;
-}
-
-.stat-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-/* ----- Contact Section (Mission 05) ----- */
-.contact-terminal {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    backdrop-filter: blur(12px);
-    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 3rem 2rem;
     margin-top: 1rem;
 }
 
-.terminal-decor-top {
-    border-bottom: 1px solid var(--border-color);
-    padding: 0.8rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.decor-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background-color: var(--border-color);
-}
-
-.decor-dot:nth-child(1) { background-color: #ff5f56; }
-.decor-dot:nth-child(2) { background-color: #ffbd2e; }
-.decor-dot:nth-child(3) { background-color: #27c93f; }
-
-.decor-title {
-    font-size: 10px;
-    color: var(--text-muted);
-    margin-left: 0.8rem;
-}
-
-.contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 2rem 2.5rem;
-    gap: 3rem;
-}
-
-.contact-card-info {
+.skills-block {
     display: flex;
     flex-direction: column;
-    gap: 1.8rem;
 }
 
-.terminal-entry {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-}
-
-.terminal-entry .label {
-    font-family: var(--font-mono);
-    font-size: 9px;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-}
-
-.terminal-entry .value {
-    font-family: var(--font-sans);
-    font-size: 13.5px;
-    font-weight: 500;
-}
-
-.comm-link {
+.skills-block-header {
+    font-weight: 700;
     color: var(--text-primary);
-    text-decoration: none;
+}
+
+.skills-block-divider {
+    font-size: 11px;
+    color: var(--border-color);
+    margin: 0.3rem 0;
+    user-select: none;
+}
+
+.skills-list {
+    list-style: none;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.skills-list li {
+    margin-bottom: 0.4rem;
     transition: color 0.3s ease;
 }
 
-.comm-link:hover {
-    color: var(--accent);
+.skills-list li:hover {
+    color: var(--command-color);
+    text-shadow: var(--glow-text);
 }
 
-/* ----- Observatory Footer ----- */
-.observatory-footer {
-    padding: 5rem 0 3rem;
+/* ----- Projects Section ----- */
+.projects-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.project-item {
+    display: flex;
+    gap: 3rem;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-item:first-of-type {
+    padding-top: 1rem;
+}
+
+.project-item:last-of-type {
+    border-bottom: none;
+}
+
+.project-index {
+    font-size: 1.3rem;
+    color: var(--command-color);
+    font-weight: 500;
+    text-shadow: var(--glow-text);
+    width: 30px;
+    flex-shrink: 0;
+}
+
+.project-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.project-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.project-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    max-width: 680px;
+    line-height: 1.7;
+}
+
+.project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+    margin-top: 0.2rem;
+}
+
+.stack-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-right: 0.4rem;
+}
+
+.stack-tag {
+    font-size: 11px;
+    color: var(--link-color);
+    background: rgba(56, 189, 248, 0.05);
+    border: 1px solid rgba(56, 189, 248, 0.12);
+    padding: 0.15rem 0.6rem;
+    border-radius: 2px;
+}
+
+/* ----- Experience Section ----- */
+.experience-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.experience-item {
+    background: transparent;
+}
+
+.exp-header {
+    margin-bottom: 1rem;
+}
+
+.exp-dates {
+    font-size: 12px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.exp-company {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: inline-block;
+    margin-right: 0.8rem;
+}
+
+.exp-role {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.exp-details {
+    list-style: none;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.exp-details li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.exp-details li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--command-color);
+}
+
+/* ----- Contact Section ----- */
+.contact-terminal {
+    width: 100%;
+}
+
+.contact-subtext {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    border: 1px solid var(--border-color);
+    padding: 1.8rem;
+    max-width: 550px;
+}
+
+.comm-line {
+    display: flex;
+}
+
+.comm-label {
+    width: 120px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.comm-val {
+    color: var(--text-primary);
+}
+
+.contact-actions {
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* ----- Footer ----- */
+.log-footer {
+    padding: 4rem 0;
     text-align: center;
 }
 
-.footer-status {
-    font-size: 11px;
-    color: var(--text-muted);
-    letter-spacing: 0.2em;
-    margin-bottom: 0.8rem;
-}
-
-.footer-message {
-    font-size: 12.5px;
-    color: var(--text-muted);
-    margin-bottom: 2.5rem;
-}
-
 .footer-divider {
-    height: 1px;
-    background: var(--border-color);
-    max-width: 100%;
-    margin-bottom: 2.5rem;
+    font-size: 12px;
+    color: var(--border-color);
+    user-select: none;
+    margin: 1.5rem 0;
 }
 
-.footer-bottom-grid {
+.footer-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.copyright {
-    font-size: 12px;
-    color: var(--text-muted);
+    padding: 0.5rem 0;
 }
 
 .footer-tech {
     display: flex;
-    gap: 1.5rem;
-}
-
-.footer-tech span {
-    font-family: var(--font-mono);
-    font-size: 9px;
+    gap: 0.8rem;
+    font-size: 11px;
     color: var(--text-muted);
 }
 
-/* ----- Responsive Adjustments ----- */
-@media (max-width: 992px) {
-    .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 3.5rem;
-        text-align: center;
-    }
-    
-    .hero-text-block {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .hero-subtext {
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .taglines {
-        justify-content: center;
-    }
-    
-    .mission-log-box {
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .hero-illustration-block {
-        order: -1;
-    }
-
-    .about-grid {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
+.footer-tech span:first-of-type {
+    margin-right: 0.4rem;
 }
 
+.copyright {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+/* ----- Responsive Rules ----- */
 @media (max-width: 768px) {
     .nav-brand {
         display: none;
@@ -1237,105 +651,71 @@ h1, h2, h3, h4, h5, h6 {
     .nav-menu {
         gap: 1.2rem;
     }
-    
-    .dev-name {
-        font-size: 3.6rem;
+
+    .hero-name {
+        font-size: 2.8rem;
     }
 
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 1.8rem;
+    .project-item {
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 2.2rem 0;
+    }
+    
+    .project-index {
+        font-size: 1.1rem;
+        width: auto;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        gap: 1.2rem;
+        text-align: center;
     }
 }
 
 @media (max-width: 576px) {
-    .observatory-layout {
+    .log-container {
         padding: 0 1.2rem;
     }
 
-    .content-section {
-        padding: 5rem 0;
-    }
-    
-    .dev-name {
-        font-size: 2.8rem;
+    .section {
+        padding: 4.5rem 0;
     }
 
-    .stats-grid {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
+    .hero-name {
+        font-size: 2.3rem;
     }
-    
-    .timeline-box {
-        padding: 1.2rem;
-    }
-    
-    .orbital-progress-container {
-        width: 60px;
-        height: 60px;
-        bottom: 1.5rem;
-        right: 1.5rem;
-    }
-    
-    .orbital-ring-svg {
-        width: 60px;
-        height: 60px;
-    }
-    
-    .orbital-ring-bg,
-    .orbital-ring-fill {
-        cx: 30;
-        cy: 30;
-        r: 25;
-    }
-    
-    .orbital-ring-fill {
-        stroke-dasharray: 157; /* 2 * PI * 25 ≈ 157 */
-        stroke-dashoffset: 157;
-    }
-    
-    .orbital-progress-text {
-        font-size: 9px;
-    }
-}
 
-@media (max-width: 480px) {
-    .nav-menu {
-        gap: 0.8rem;
+    .hero-roles {
+        gap: 0.5rem;
     }
-    
-    .nav-link {
-        font-size: 9px;
+
+    .hero-roles span {
+        font-size: 11px;
     }
-    
-    .tag-item {
-        font-size: 9px;
-        padding: 0.2rem 0.6rem;
-    }
-    
+
     .hero-subtext {
         font-size: 0.95rem;
     }
-    
-    .section-heading {
-        font-size: 1.5rem;
-    }
-    
-    .quote-section {
-        padding: 5rem 0;
-    }
-    
-    .observatory-quote {
-        font-size: 1.5rem;
+
+    .meta-log-grid {
+        padding: 1rem;
     }
 
-    .footer-bottom-grid {
-        flex-direction: column;
-        gap: 1.5rem;
-        text-align: center;
+    .meta-lbl {
+        width: 80px;
+    }
+
+    .contact-methods {
+        padding: 1.2rem;
+    }
+
+    .comm-label {
+        width: 90px;
     }
     
-    .footer-tech {
-        justify-content: center;
+    .comm-val {
+        font-size: 12px;
     }
 }

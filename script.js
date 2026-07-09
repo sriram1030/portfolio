@@ -34,6 +34,83 @@ function initStarfield() {
     starField.appendChild(fragment);
 }
 
+// ----- Space Background Animations (GSAP) -----
+function initSpaceAnimations() {
+    // 1. Slow floating movement for Nebula and Planet Anomaly gradients
+    gsap.to(".nebula", {
+        x: "6%",
+        y: "4%",
+        scale: 1.15,
+        duration: 25,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1
+    });
+
+    gsap.to(".planet-anomaly", {
+        x: "-6%",
+        y: "-4%",
+        scale: 1.2,
+        duration: 30,
+        ease: "sine.inOut",
+        yoyo: true,
+        repeat: -1
+    });
+
+    // 2. Shooting Stars Generator
+    function spawnShootingStar() {
+        const spaceBg = document.querySelector('.space-bg');
+        if (!spaceBg) return;
+
+        const star = document.createElement('div');
+        star.className = 'shooting-star';
+        
+        // Random starting positions (upper half and left side)
+        const startX = Math.random() * (window.innerWidth * 0.7);
+        const startY = Math.random() * (window.innerHeight * 0.5);
+        
+        star.style.left = `${startX}px`;
+        star.style.top = `${startY}px`;
+        
+        spaceBg.appendChild(star);
+
+        const travelDist = Math.random() * 250 + 200; // Distance of shoot
+        
+        gsap.to(star, {
+            width: travelDist,
+            opacity: 1,
+            duration: 0.4,
+            ease: "power1.out",
+            onComplete: () => {
+                // Fade out trail and move
+                gsap.to(star, {
+                    x: travelDist * 0.8,
+                    y: travelDist * 0.8 * Math.tan(35 * Math.PI / 180), // trajectory matching rotation
+                    width: 0,
+                    opacity: 0,
+                    duration: 0.6,
+                    ease: "power1.in",
+                    onComplete: () => {
+                        star.remove();
+                    }
+                });
+            }
+        });
+    }
+
+    // Spawn a shooting star every 8 to 15 seconds
+    function scheduleNextStar() {
+        const delay = Math.random() * 7000 + 8000; // 8s to 15s
+        setTimeout(() => {
+            spawnShootingStar();
+            scheduleNextStar();
+        }, delay);
+    }
+    
+    // Initial delay before first shooting star
+    setTimeout(scheduleNextStar, 5000);
+}
+
 // ----- Initial Linux Boot Sequence -----
 const bootSequence = [
     { text: "Loading Kernel.............................OK", delay: 250 },
@@ -311,6 +388,7 @@ function initDynamicYear() {
 // ----- Main Launch -----
 document.addEventListener('DOMContentLoaded', () => {
     initStarfield();
+    initSpaceAnimations();
     runBootSequence();
     initScrollReveal();
     initNavHighlight();

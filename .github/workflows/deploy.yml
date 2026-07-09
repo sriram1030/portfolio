@@ -1,21 +1,21 @@
-name: Deploy Portfolio
+name: Test SSH
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy to VPS
+      - name: Test SSH
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          debug: true
           script: |
-            cd /opt/docker/apps/portfolio
-            git pull origin main
+            whoami
+            hostname
+            pwd

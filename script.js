@@ -9,7 +9,7 @@ function initStarfield() {
     const starField = document.getElementById('stars-field');
     if (!starField) return;
     
-    const numStars = 50;
+    const numStars = 60; // Slightly increased for better density
     const fragment = document.createDocumentFragment();
 
     for (let i = 0; i < numStars; i++) {
@@ -18,8 +18,8 @@ function initStarfield() {
         
         const x = Math.random() * 100;
         const y = Math.random() * 100;
-        const size = Math.random() * 1.5 + 0.5;
-        const duration = Math.random() * 3 + 3; // 3s to 6s
+        const size = Math.random() * 1.8 + 0.4; // sizes from 0.4px to 2.2px
+        const duration = Math.random() * 3 + 3; // 3s to 6s twinkling
         const delay = Math.random() * 5;
         
         star.style.left = `${x}%`;
@@ -30,6 +30,21 @@ function initStarfield() {
         star.style.animationDelay = `${delay}s`;
         
         fragment.appendChild(star);
+
+        // GSAP slow parallax drift animation (larger stars drift further/faster)
+        const driftMax = size * 20; // Max drift range in pixels
+        const driftX = (Math.random() - 0.5) * driftMax * 2;
+        const driftY = (Math.random() - 0.5) * driftMax * 2;
+        const driftDuration = Math.random() * 20 + 20; // 20s to 40s for slow movement
+
+        gsap.to(star, {
+            x: driftX,
+            y: driftY,
+            duration: driftDuration,
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1
+        });
     }
     starField.appendChild(fragment);
 }

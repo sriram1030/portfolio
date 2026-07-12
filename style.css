@@ -780,6 +780,10 @@ body {
         gap: 1.2rem;
         text-align: center;
     }
+
+    .cmd-body {
+        padding: 1.8rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -825,5 +829,19 @@ body {
     
     .comm-val {
         font-size: 12px;
+    }
+
+    .cmd-body {
+        padding: 1.2rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .hero-actions .btn {
+        text-align: center;
+        width: 100%;
     }
 }
